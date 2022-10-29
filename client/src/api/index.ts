@@ -7,8 +7,7 @@ export function setToken(t: string) {
 }
 
 export const clientInstance = axios.create({
-  baseURL: '/api',
-  // baseURL: 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_ENV == 'prod' ? '/api' : 'http://localhost:3000/api',
   timeout: 1000,
   headers: { Authorization: 'Bearer ' + token }
 });

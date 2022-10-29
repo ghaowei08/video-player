@@ -4,6 +4,8 @@ const router = Router();
 import fs from 'fs'
 import { join } from 'path';
 import { Video } from '../models/video.interface';
+import { isValid, } from 'ipaddr.js';
+import { VideoLog } from '../models/video.interface'
 
 module.exports = router
 
@@ -14,18 +16,21 @@ router.get("/length", async (req, res) => {
 
 router.get("/log", async (req, res) => {
   const ipAddress = req.header('x-forwarded-for') ||
-    req.socket.remoteAddress;
-  console.log(ipAddress)
+    req.socket.remoteAddress as string;
 
-  var split_str = ipAddress!.split(':');
-  const value = split_str[6] + split_str[7];
-  console.log('Value', value)
-  var ip_1 = ~parseInt(value.substring(0, 2), 16) & 0xFF;
-  var ip_2 = ~parseInt(value.substring(2, 4), 16) & 0xFF;
-  var ip_3 = ~parseInt(value.substring(4, 6), 16) & 0xFF;
-  var ip_4 = ~parseInt(value.substring(6, 8), 16) & 0xFF;
-
-  console.log(ip_1, ip_2, ip_3, ip_4)
+  if (isValid(ipAddress)) {
+    const logPath = join(__dirname, '..', '..', 'log.json')
+    if (fs.existsSync(logPath)) {
+      const logsBuffer = fs.readFileSync(logPath)
+      let logs: VideoLog[] = logsBuffer.toString() ? JSON.parse(logsBuffer.toString()) : [];
+      logs.push({
+        id: logs.length,
+        createdAt: new Date().toISOString(),
+        ip: ipAddress
+      })
+      fs.writeFileSync(logPath, JSON.stringify(logs))
+    }
+  }
   res.send("OK")
 })
 

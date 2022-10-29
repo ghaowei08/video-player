@@ -2,8 +2,8 @@
   <div class="fixed-center" :style="{ width: size }">
     <div v-if="isPlaying">
       <q-responsive :ratio="16 / 9">
-        <video-component :onEnded="onEnded" :src="`/api/video/all`" />
-        <!-- <video-component :onEnded="onEnded" :src="`http://localhost:3000/api/videos`" /> -->
+        <video-component :onEnded="onEnded"
+          :src="`${import.meta.env.VITE_ENV == 'prod' ? '' : 'http://localhost:3000'}/api/video/all`" />
       </q-responsive>
     </div>
     <div v-else class="text-center">
