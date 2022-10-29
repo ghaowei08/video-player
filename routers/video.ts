@@ -29,13 +29,14 @@ router.get("/log", async (req, res) => {
   res.send("OK")
 })
 
-router.get("/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
+
+
+router.get("/all", async (req, res) => {
   const buffer = fs.readFileSync(join(__dirname, '..', '..', 'video.json'))
   const videos: Video[] = JSON.parse(buffer.toString())
 
   const videoRange = req.headers.range;
-  const selectedVideo = videos.find(e => e.id == id)
+  const selectedVideo = videos.find(e => e.id == 1)
 
   const videoPath = join(__dirname, '..', '..', `assets/${selectedVideo!.name}.mp4`)
   const videoSize = fs.statSync(videoPath).size;
@@ -67,18 +68,18 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
-router.get("/videos", async (req, res) => {
-  const buffer = fs.readFileSync(join(__dirname, '../video.json'))
+router.get("/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const buffer = fs.readFileSync(join(__dirname, '..', '..', 'video.json'))
   const videos: Video[] = JSON.parse(buffer.toString())
-  // const rnd: number = Math.floor(Math.random() * 5);
 
   const videoRange = req.headers.range;
-  const videoPath = join(__dirname, `../assets/${videos[0]!.name}.mp4`)
+  const selectedVideo = videos.find(e => e.id == id)
+
+  const videoPath = join(__dirname, '..', '..', `assets/${selectedVideo!.name}.mp4`)
   const videoSize = fs.statSync(videoPath).size;
 
   if (videoRange) {
-    console.log(`Video Range -- ${videoRange}`)
     const parts = videoRange.replace(/bytes=/, "").split("-");
     const start = parseInt(parts[0], 10);
     const end = parts[1]
