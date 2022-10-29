@@ -2,8 +2,7 @@
   <div class="fixed-center" :style="{ width: size }">
     <div v-if="isPlaying">
       <q-responsive :ratio="16 / 9">
-        <video-component :onEnded="onEnded"
-          :src="`${import.meta.env.VITE_ENV == 'prod' ? '' : 'http://localhost:3000'}/api/video/all`" />
+        <video-component :onEnded="onEnded" :src="src" />
       </q-responsive>
     </div>
     <div v-else class="text-center">
@@ -23,8 +22,12 @@ const videoId = ref(1)
 let timer: number;
 let videoNumber: number = 0;
 
+const src = ref('')
+
 onMounted(async () => {
   videoNumber = await (await VideoApi.videoLength()).length
+
+  src.value = `${import.meta.env.VITE_ENV == 'prod' ? '' : 'http://localhost:3000'}/api/video/all`
   const screenHeight = window.screen.height;
   const screenWidth = window.screen.width;
   if (screenHeight > screenWidth) {

@@ -60,8 +60,3 @@ function onEnded() {
 
 </script>
  
-<style>
-.video-js .vjs-volume-menu-button {
-  display: none;
-}
-</style>
