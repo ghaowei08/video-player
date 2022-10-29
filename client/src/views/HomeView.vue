@@ -22,12 +22,11 @@ const videoId = ref(1)
 let timer: number;
 let videoNumber: number = 0;
 
-const src = ref('')
+const src = ref(`${import.meta.env.VITE_ENV == 'PROD' ? '' : 'http://localhost:3001'}` + '/api/video/all')
 
 onMounted(async () => {
   videoNumber = await (await VideoApi.videoLength()).length
-
-  src.value = `${import.meta.env.VITE_ENV == 'prod' ? '' : 'http://localhost:3000'}/api/video/all`
+  console.log(src.value)
   const screenHeight = window.screen.height;
   const screenWidth = window.screen.width;
   if (screenHeight > screenWidth) {
