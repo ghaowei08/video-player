@@ -1,4 +1,4 @@
-import { createConnection, Connection, RowDataPacket } from 'mysql2/promise';
+import { createConnection, Connection,  } from 'mysql2/promise';
 import dotenv from 'dotenv';
 import bluebird from 'bluebird';
 import { log } from './config';
@@ -30,22 +30,8 @@ export async function initialConnection() {
   }
 }
 
-
 export async function query(payload: string) {
   const conn = await getConnection()
   const [rows, fields] = await (await conn.query(payload))
   return rows;
 }
-
-// const [rows, fields] = await conn.execute(`SELECT * FROM products WHERE product_id = 1`);
-// console.log(rows)
-// return rows
-
-// pool.getConnection((err, conn) => {
-//   if (err) {
-//     return log.error(`Failed to establish connection to ${process.env.DB_HOST} ${process.env.DB_DB}`)
-//   }
-//   log.info(`DB Connected to ${process.env.DB_HOST} ${process.env.DB_DB}`)
-//   conn.release()
-// })
-

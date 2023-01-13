@@ -26,7 +26,6 @@ const src = ref(`${import.meta.env.VITE_ENV == 'PROD' ? '' : 'http://localhost:3
 
 onMounted(async () => {
   videoNumber = await (await VideoApi.videoLength()).length
-  console.log(src.value)
   const screenHeight = window.screen.height;
   const screenWidth = window.screen.width;
   if (screenHeight > screenWidth) {

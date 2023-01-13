@@ -3,9 +3,7 @@ const router = Router();
 
 import fs from 'fs'
 import { join } from 'path';
-import { Video } from '../models/video.interface';
 import { isValid, } from 'ipaddr.js';
-import { VideoLog } from '../models/video.interface'
 
 module.exports = router
 
@@ -33,8 +31,6 @@ router.get("/log", async (req, res) => {
   }
   res.send("OK")
 })
-
-
 
 router.get("/all", async (req, res) => {
   const buffer = fs.readFileSync(join(__dirname, '..', '..', 'video.json'))
