@@ -18,6 +18,8 @@ yarn
 ```bash
 yarn dev
 ```
+### Display
+![My Image](lib/image.png)
 
 ### Contributing
 
