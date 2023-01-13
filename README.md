@@ -3,14 +3,22 @@
 Vue 3 Video Player
 
 ### Installation
-On Root (Backend) & Client (FrontEnd) Folder
+1. Add Video to 'assets' folder
+2. Backend (Root Folder) - Default Port 3000
 ```bash
 yarn
 ```
-Start Backend (Default Port 3000) & FrontEnd (Random)
 ```bash
 yarn dev
 ```
+3. FrontEnd (Client) - Port Random
+```bash
+yarn
+```
+```bash
+yarn dev
+```
+
 ### Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
