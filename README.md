@@ -7,7 +7,7 @@ On Root (Backend) & Client (FrontEnd) Folder
 ```bash
 yarn
 ```
-Start Backend & FrontEnd
+Start Backend (Default Port 3000) & FrontEnd (Random)
 ```bash
 yarn dev
 ```
